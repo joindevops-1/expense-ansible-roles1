@@ -3,6 +3,8 @@
     name: 
     - cryptography
     - PyMySQL
+    - boto3
+    - botocore
     executable: pip3.9
 - name: install MySQL Server
   ansible.builtin.package:
@@ -18,7 +20,7 @@
 - name: connect mysql server
   community.mysql.mysql_info:
     login_user: root
-    login_password: "{{ mysql_root_password }}"
+    login_password: "{{ lookup('aws_ssm', '/expense/mysql/mysql_root_password', decrypt=True) }}"
     login_host: "{{ login_host }}"
   ignore_errors: true
   register: mysql_info
