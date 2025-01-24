@@ -1,6 +1,8 @@
 - name: ansible to install pymysql
   ansible.builtin.pip:
-    name:
+    name: "{{ item }}"
+    loop:
+    - cryptography
     - PyMySQL
     executable: pip3.9
 - name: install MySQL Server
